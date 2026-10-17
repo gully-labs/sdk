@@ -1,0 +1,16 @@
+{
+  "name": "gully-sdk",
+  "private": true,
+  "description": "Gully Labs SDKs: the stock token tracker client and the embeddable widget.",
+  "license": "MIT",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}
