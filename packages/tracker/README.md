@@ -45,6 +45,6 @@ Every failure is a `GullyApiError` with `status` (0 for a network error or timeo
 
 ## Limits
 
-60 calls a minute per IP with no key; 600 with a key from https://developers.gullylabs.xyz. The tracker refreshes every minute, so polling faster than that returns the same data.
+60 calls a minute per IP with no key; 600 with a key from https://app.gullylabs.xyz. The tracker refreshes every minute, so polling faster than that returns the same data.
 
 Full reference: https://docs.gullylabs.xyz/api · MIT

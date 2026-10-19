@@ -177,7 +177,7 @@ export type HolderMap = HolderMapOk | HolderMapNotOk
 export const isMapOk = (m: HolderMap): m is HolderMapOk => m.state === 'ok'
 
 export interface HoldersClientOptions {
-  /** An API key from https://developers.gullylabs.xyz raises the rate limit and unlocks plan features. */
+  /** An API key from https://app.gullylabs.xyz raises the rate limit and unlocks plan features. */
   apiKey?: string
   /** Defaults to https://gullylabs.xyz */
   baseUrl?: string

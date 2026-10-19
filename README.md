@@ -52,7 +52,7 @@ No build step? One script tag does the same:
 
 ## Limits and keys
 
-Anonymous calls get 60 a minute per IP. A key from the [developer portal](https://developers.gullylabs.xyz) (sign in with your wallet, no form) gets 600:
+Anonymous calls get 60 a minute per IP. A key from the [Gully Labs app](https://app.gullylabs.xyz) (sign in with your wallet, no form) gets 600:
 
 ```ts
 const tracker = createTrackerClient({ apiKey: process.env.GULLY_API_KEY })

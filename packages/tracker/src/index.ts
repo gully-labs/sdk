@@ -89,7 +89,7 @@ export interface RateLimit {
 }
 
 export interface ClientOptions {
-  /** An API key from https://developers.gullylabs.xyz raises the limit from 60 to 600 calls a minute. */
+  /** An API key from https://app.gullylabs.xyz raises the limit from 60 to 600 calls a minute. */
   apiKey?: string
   /** Defaults to https://gullylabs.xyz */
   baseUrl?: string
