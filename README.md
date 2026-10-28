@@ -1,20 +1,30 @@
 <!-- gully-header:start -->
-<a href="https://gullylabs.xyz"><img src="https://gullychain.xyz/brand/gully-labs/sdk.svg" alt="Gully Labs · Gully Labs SDK" width="100%"></a>
+<p align="center">
+  <a href="https://docs.gullylabs.xyz/sdk">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/gully-labs-logo.png">
+      <img alt="Gully Labs" src=".github/assets/gully-labs-logo-on-light.png" width="300">
+    </picture>
+  </a>
+</p>
+
+<p align="center"><b>You Think It, We Ship It.</b></p>
+
+<p align="center">Typed client for the stock token tracker API and the embeddable widget (React + vanilla). MIT.</p>
 
 <p align="center">
   <a href="https://gullylabs.xyz"><img src="https://img.shields.io/badge/gullylabs.xyz-00D2FF?style=for-the-badge&labelColor=06050D&logo=googlechrome&logoColor=06050D" alt="Website"></a>
+  <a href="https://docs.gullylabs.xyz/sdk"><img src="https://img.shields.io/badge/docs.gullylabs.xyz/sdk-0B0A16?style=for-the-badge&labelColor=06050D&logo=googlechrome&logoColor=00D2FF" alt="App"></a>
   <a href="https://docs.gullylabs.xyz"><img src="https://img.shields.io/badge/Docs-0B0A16?style=for-the-badge&labelColor=06050D&logo=readthedocs&logoColor=00D2FF" alt="Docs"></a>
+  <a href="https://discord.com/invite/tY2ErsNNBp"><img src="https://img.shields.io/badge/Discord-0B0A16?style=for-the-badge&labelColor=06050D&logo=discord&logoColor=5865F2" alt="Discord"></a>
   <a href="https://x.com/Gully_Labs"><img src="https://img.shields.io/badge/@Gully__Labs-0B0A16?style=for-the-badge&labelColor=06050D&logo=x&logoColor=white" alt="X"></a>
-  <a href="https://t.me/GullyLabsNews"><img src="https://img.shields.io/badge/Telegram-0B0A16?style=for-the-badge&labelColor=06050D&logo=telegram&logoColor=26A5E4" alt="Telegram"></a>
-  <a href="https://github.com/gully-labs"><img src="https://img.shields.io/badge/GitHub-0B0A16?style=for-the-badge&labelColor=06050D&logo=github&logoColor=white" alt="GitHub"></a>
 </p>
 
-<p align="center"><b>Gully Labs SDK: Typed client for the stock token tracker API and the embeddable widget (React + vanilla). MIT.</b></p>
-
-<p align="center"><sub>Built by <a href="https://gullylabs.xyz">Gully Labs</a>. You Think It, We Ship It.</sub></p>
+<p align="center"><sub>Built and run by <a href="https://gullylabs.xyz">Gully Labs</a>. You Think It, We Ship It.</sub></p>
 
 ---
 <!-- gully-header:end -->
+
 # Gully Labs SDK
 
 Build on the Gully Labs stock token tracker: every tokenised stock on Robinhood Chain and BNB Chain, priced from its deepest pool on chain against its Chainlink fair price, refreshed every minute.
@@ -66,3 +76,17 @@ const tracker = createTrackerClient({ apiKey: process.env.GULLY_API_KEY })
 - X: [@Gully_Labs](https://x.com/Gully_Labs)
 
 Information only, not investment advice. MIT licensed.
+
+
+<!-- gully-footer:start -->
+---
+
+<p align="center">
+  <a href="https://gullylabs.xyz">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/powered-by-gully-labs-dark-2x.png">
+      <img alt="Powered by Gully Labs" src=".github/assets/powered-by-gully-labs-light-2x.png" width="254" height="64">
+    </picture>
+  </a>
+</p>
+<!-- gully-footer:end -->
