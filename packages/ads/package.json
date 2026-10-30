@@ -1,0 +1,115 @@
+{
+  "name": "@gullylabs/ads",
+  "version": "0.1.0-beta.0",
+  "description": "Gully Ads publisher SDK (beta): the <gully-ad-slot> web component, a React wrapper, a typed client for the Gully Ads serve/events API and a server helper that signs serve requests with the placement secret (WebCrypto, Node 18+/edge).",
+  "license": "MIT",
+  "author": "Gully Labs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./server": {
+      "import": {
+        "types": "./dist/server.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": {
+        "types": "./dist/server.d.cts",
+        "default": "./dist/server.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./define": {
+      "import": {
+        "types": "./dist/define.d.ts",
+        "default": "./dist/define.js"
+      },
+      "require": {
+        "types": "./dist/define.d.cts",
+        "default": "./dist/define.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./dist/define.js",
+    "./dist/define.cjs"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "gully labs",
+    "gully chain",
+    "gully ads",
+    "kre8",
+    "ads",
+    "ad slot",
+    "web component",
+    "react",
+    "hmac",
+    "offerwall"
+  ],
+  "homepage": "https://docs.gullylabs.xyz/integrate",
+  "bugs": {
+    "url": "https://github.com/gully-labs/sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gully-labs/sdk.git",
+    "directory": "packages/ads"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.5",
+    "@types/react": "19.2.2",
+    "jsdom": "27.0.1",
+    "react": "19.2.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "4.0.8"
+  }
+}
