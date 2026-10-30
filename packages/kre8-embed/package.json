@@ -1,0 +1,128 @@
+{
+  "name": "@gullylabs/kre8-embed",
+  "version": "0.1.0",
+  "description": "Embeddable kre8.fun web components for any site: a Gully Chain coin card with a live sparkline, a track / video / Shorts / live player and a Back this button, each rendered in a sandboxed iframe served from kre8.fun. React wrapper and a read-only public data client included.",
+  "license": "MIT",
+  "author": "Gully Labs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./define": {
+      "import": {
+        "types": "./dist/define.d.ts",
+        "default": "./dist/define.js"
+      },
+      "require": {
+        "types": "./dist/define.d.cts",
+        "default": "./dist/define.cjs"
+      }
+    },
+    "./define.js": {
+      "import": {
+        "types": "./dist/define.d.ts",
+        "default": "./dist/define.js"
+      },
+      "require": {
+        "types": "./dist/define.d.cts",
+        "default": "./dist/define.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.js"
+      },
+      "require": {
+        "types": "./dist/client.d.cts",
+        "default": "./dist/client.cjs"
+      }
+    },
+    "./kre8-embed.global.js": "./dist/kre8-embed.global.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./dist/define.js",
+    "./dist/define.cjs",
+    "./dist/kre8-embed.global.js"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "kre8",
+    "kre8.fun",
+    "gully chain",
+    "gully labs",
+    "embed",
+    "web components",
+    "iframe",
+    "coin card",
+    "sparkline",
+    "music player",
+    "creator",
+    "react"
+  ],
+  "homepage": "https://docs.gullychain.xyz/sdks/",
+  "bugs": {
+    "url": "https://github.com/gully-labs/sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gully-labs/sdk.git",
+    "directory": "packages/kre8-embed"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "jsdom": "27.0.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "4.0.8"
+  }
+}
