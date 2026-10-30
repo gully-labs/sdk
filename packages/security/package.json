@@ -1,0 +1,119 @@
+{
+  "name": "@gullylabs/security",
+  "version": "0.1.0",
+  "description": "Typed client for the Gully Security API (AI Security Scans, published reports, Gully Score) and the official Secured by GullySecurity badge web component. Gully Chain (485590) supported.",
+  "license": "MIT",
+  "author": "Gully Labs",
+  "type": "module",
+  "sideEffects": [
+    "./dist/badge.js",
+    "./dist/badge.cjs"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://gullysecurity.xyz",
+  "bugs": {
+    "url": "https://github.com/gully-labs/sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gully-labs/sdk.git",
+    "directory": "packages/security"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "gully",
+    "gully-labs",
+    "gully-security",
+    "gully-chain",
+    "security",
+    "smart-contract",
+    "scan",
+    "audit",
+    "gully-score",
+    "badge",
+    "web-component",
+    "evm"
+  ],
+  "files": [
+    "dist",
+    "assets",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./badge": {
+      "import": {
+        "types": "./dist/badge.d.ts",
+        "default": "./dist/badge.js"
+      },
+      "require": {
+        "types": "./dist/badge.d.cts",
+        "default": "./dist/badge.cjs"
+      }
+    },
+    "./badge.js": {
+      "import": {
+        "types": "./dist/badge.d.ts",
+        "default": "./dist/badge.js"
+      },
+      "require": {
+        "types": "./dist/badge.d.cts",
+        "default": "./dist/badge.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./assets/*": "./assets/*",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "jsdom": "27.0.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "4.0.8"
+  }
+}

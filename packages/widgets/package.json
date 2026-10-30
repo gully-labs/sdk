@@ -1,0 +1,144 @@
+{
+  "name": "@gullylabs/widgets",
+  "version": "0.1.0",
+  "description": "Gully Labs data clients and embeds in one package: the stock token tracker client, the Holder Map client and React frame (Gully Chain included), and the tracker widget (ticker, badge, table).",
+  "license": "MIT",
+  "author": "Gully Labs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./tracker": {
+      "import": {
+        "types": "./dist/tracker.d.ts",
+        "default": "./dist/tracker.js"
+      },
+      "require": {
+        "types": "./dist/tracker.d.cts",
+        "default": "./dist/tracker.cjs"
+      }
+    },
+    "./holders": {
+      "import": {
+        "types": "./dist/holders.d.ts",
+        "default": "./dist/holders.js"
+      },
+      "require": {
+        "types": "./dist/holders.d.cts",
+        "default": "./dist/holders.cjs"
+      }
+    },
+    "./holders/react": {
+      "import": {
+        "types": "./dist/holders-react.d.ts",
+        "default": "./dist/holders-react.js"
+      },
+      "require": {
+        "types": "./dist/holders-react.d.cts",
+        "default": "./dist/holders-react.cjs"
+      }
+    },
+    "./widget": {
+      "import": {
+        "types": "./dist/widget.d.ts",
+        "default": "./dist/widget.js"
+      },
+      "require": {
+        "types": "./dist/widget.d.cts",
+        "default": "./dist/widget.cjs"
+      }
+    },
+    "./widget/react": {
+      "import": {
+        "types": "./dist/widget-react.d.ts",
+        "default": "./dist/widget-react.js"
+      },
+      "require": {
+        "types": "./dist/widget-react.d.cts",
+        "default": "./dist/widget-react.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./widget.js": "./widget.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "widget.js",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./widget.js"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "gully labs",
+    "gully chain",
+    "holder map",
+    "token holders",
+    "tokenized stocks",
+    "chainlink",
+    "widget",
+    "embed",
+    "react"
+  ],
+  "homepage": "https://docs.gullylabs.xyz/integrate",
+  "bugs": {
+    "url": "https://github.com/gully-labs/sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gully-labs/sdk.git",
+    "directory": "packages/widgets"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:live": "GULLY_LIVE=1 vitest run test/tracker.live.test.ts",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.5",
+    "@types/react": "19.2.2",
+    "react": "19.2.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "4.0.8"
+  }
+}

@@ -25,68 +25,45 @@
 ---
 <!-- gully-header:end -->
 
-# Gully Labs SDK
+# Gully Labs SDKs
 
-Build on the Gully Labs stock token tracker: every tokenised stock on Robinhood Chain and BNB Chain, priced from its deepest pool on chain against its Chainlink fair price, refreshed every minute.
+The Gully Labs packages on npm, all under the `@gullylabs` scope. Every package: ESM + CommonJS builds with TypeScript types, MIT, semver 0.x, a 5-minute quickstart in its README, a CHANGELOG, and a `files` allowlist (no tests, no secrets). Releases are tagged `<package>@<version>` and published with npm provenance by `.github/workflows/release.yml`.
 
-| Package | What it is |
-|---|---|
-| [`@gullylabs/tracker`](packages/tracker) | A typed client for the tracker API. No dependencies; runs in browsers, Node 18+, Bun, Deno and edge runtimes. |
-| [`@gullylabs/widget`](packages/widget) | The embeddable widget (ticker, badge, table) with a loader and a React component. |
-| [`@gullylabs/holders`](packages/holders) | A typed client for the Holder Map API (who holds a token, wallet clusters) and a React component that frames the map. |
+| Package | What it is | Repo |
+|---|---|---|
+| [`@gullylabs/widgets`](packages/widgets) | Stock token tracker client, Holder Map client + `<HolderMap>` (Gully Chain included), the tracker widget + `<GullyWidget>`. Replaces `@gullylabs/tracker`, `@gullylabs/holders`, `@gullylabs/widget`. | here |
+| [`@gullylabs/security`](packages/security) | Gully Security scan-a-token API client and the "Secured by Gully Security" badge web component. | here |
+| [`@gullylabs/kre8-embed`](packages/kre8-embed) | kre8.fun embeds: coin card, Drop / track player and "Back this" button as sandboxed-iframe web components with a React wrapper. | here |
+| [`@gullylabs/ads`](packages/ads) | Gully Ads publisher SDK (beta): ad slot component, signed serve requests, impression and click reporting. | here |
+| `@gullylabs/chain` | Gully Chain SDK: chain objects, addresses, ABIs, launchpad, swap, names, accounts, bridge, indexer, CLI. | [gullychain-sdk](https://github.com/gully-labs/gullychain-sdk) |
+| `@gullylabs/id` | Gully ID client: passkey and email sign-in, Sign in with Gully (OIDC + PKCE). | [gully-id](https://github.com/gully-labs/gully-id) `sdk/` |
+| `@gullylabs/pay` | Gully Pay SDK: x402 client, Agent Wallets, MCP server, wallet and verification helpers. | [gull-pay](https://github.com/gully-labs/gull-pay) `packages/pay-sdk` |
 
+Integrate in 5 minutes: https://docs.gullylabs.xyz/integrate (Gully Labs) and https://docs.gullychain.xyz/sdks/ (Gully Chain builders).
 
 ## Quick start
 
 ```ts
-import { createTrackerClient } from '@gullylabs/tracker'
+import { createHoldersClient, isMapOk } from '@gullylabs/widgets/holders'
 
-const tracker = createTrackerClient() // 60 calls a minute, no key needed
-
-const widest = await tracker.widestGaps(5)
-for (const s of widest) console.log(s.ticker, s.chain, s.gapPct.toFixed(2) + '%')
+const map = await createHoldersClient().getMap('gully', '0x...') // Gully Chain, no key needed
+if (isMapOk(map)) console.log(map.summary.line)
 ```
 
 ```tsx
-import { GullyWidget } from '@gullylabs/widget/react'
+import { GullyWidget } from '@gullylabs/widgets/widget/react'
 
 export const Nvda = () => <GullyWidget type="badge" ticker="NVDA" chain="robinhood" />
 ```
 
-No build step? One script tag does the same:
+## Develop
 
-```html
-<div data-gully-widget="ticker"></div>
-<script src="https://gullylabs.xyz/widget.js" async></script>
-```
+Each package is self-contained: `cd packages/<name> && npm install && npm test && npm run build`. `npm pack --dry-run` shows exactly what would ship.
 
-## Limits and keys
+## Release
 
-Anonymous calls get 60 a minute per IP. A key from the [Gully Labs app](https://app.gullylabs.xyz) (sign in with your wallet, no form) gets 600:
+1. Bump `version` in the package's `package.json` and add a `CHANGELOG.md` entry.
+2. Merge to `main`, then `git tag <package>@<version> && git push --tags` (for example `widgets@0.1.0`). Prerelease versions (`0.1.0-beta.0`) publish under the `beta` dist-tag.
+3. `.github/workflows/release.yml` builds, tests and runs `npm publish --provenance --access public` with the `NPM_TOKEN` secret.
 
-```ts
-const tracker = createTrackerClient({ apiKey: process.env.GULLY_API_KEY })
-```
-
-## Links
-
-- API reference: https://docs.gullylabs.xyz/api
-- Methodology: https://docs.gullylabs.xyz/methodology
-- Live tracker: https://gullylabs.xyz/tracker
-- X: [@Gully_Labs](https://x.com/Gully_Labs)
-
-Information only, not investment advice. MIT licensed.
-
-
-<!-- gully-footer:start -->
----
-
-<p align="center">
-  <a href="https://gullylabs.xyz">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/powered-by-gully-labs-dark-2x.png">
-      <img alt="Powered by Gully Labs" src=".github/assets/powered-by-gully-labs-light-2x.png" width="254" height="64">
-    </picture>
-  </a>
-</p>
-<!-- gully-footer:end -->
+MIT. Built and run by [Gully Labs](https://gullylabs.xyz).
