@@ -1,8 +1,10 @@
 // Runs against the live API (one call per test, well inside the anonymous 60/min).
 // Set GULLY_BASE_URL to test another deployment.
-import { test } from 'node:test'
+import { test as baseTest } from 'vitest'
+// Live: opt in with GULLY_LIVE=1 (the default `npm test` run stays offline).
+const test = process.env.GULLY_LIVE === '1' ? baseTest : baseTest.skip
 import assert from 'node:assert/strict'
-import { createTrackerClient, GullyApiError, isTrusted } from '../dist/index.js'
+import { createTrackerClient, GullyApiError, isTrusted } from '../src/tracker'
 
 const client = createTrackerClient({ baseUrl: process.env.GULLY_BASE_URL })
 
@@ -29,5 +31,5 @@ test('history comes back as dated points, oldest first', async () => {
 test('an unknown stock is null, a bad key is a GullyApiError', async () => {
   assert.equal(await client.getStock('robinhood', 'NOTASTOCK'), null)
   const bad = createTrackerClient({ apiKey: 'gl_live_definitely_not_a_key', baseUrl: process.env.GULLY_BASE_URL })
-  await assert.rejects(bad.getTracker(), (e) => e instanceof GullyApiError && e.status === 401)
+  await assert.rejects(bad.getTracker(), (e: any) => e instanceof GullyApiError && e.status === 401)
 })

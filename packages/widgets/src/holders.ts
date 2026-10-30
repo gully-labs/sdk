@@ -1,5 +1,5 @@
 /**
- * @gullylabs/holders — a typed client for the Gully Labs Holder Map API, plus a React component.
+ * @gullylabs/widgets/holders — a typed client for the Gully Labs Holder Map API, plus a React component.
  *
  * Who holds a token and how the biggest wallets are connected. https://docs.gullylabs.xyz/holder-map-integrate
  *
@@ -7,9 +7,10 @@
  */
 
 /** The chains the Holder Map runs on. */
-export type HolderChain = 'robinhood' | 'bsc' | 'base' | 'hyperevm' | 'solana'
+/** `gully` is Gully Chain (testnet, chain id 485590). */
+export type HolderChain = 'gully' | 'robinhood' | 'bsc' | 'base' | 'hyperevm' | 'solana'
 
-export const HOLDER_CHAINS: readonly HolderChain[] = ['robinhood', 'bsc', 'base', 'hyperevm', 'solana']
+export const HOLDER_CHAINS: readonly HolderChain[] = ['gully', 'robinhood', 'bsc', 'base', 'hyperevm', 'solana']
 
 /** What a map was drawn for: a DeepCore launch, or a stock token the tracker follows. */
 export type HolderMapKind = 'stock' | 'deepcore-launch' | (string & {})
@@ -253,7 +254,7 @@ export function createHoldersClient(options: HoldersClientOptions = {}) {
 
   return {
     /**
-     * The Holder Map of a token. `chain` is a chain key (robinhood, bsc, base, hyperevm, solana) and `token` an
+     * The Holder Map of a token. `chain` is a chain key (gully, robinhood, bsc, base, hyperevm, solana) and `token` an
      * address, or a ticker the tracker follows. Resolves with the server's answer even when the map could not be
      * drawn (check `state`, or use `isMapOk`). Throws HoldersApiError on a rate limit, a bad request or no answer.
      */

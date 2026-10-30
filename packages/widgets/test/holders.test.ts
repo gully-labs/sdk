@@ -1,11 +1,11 @@
 // Offline: fetch is a stub, so nothing leaves the machine.
-import { test } from 'node:test'
+import { test } from 'vitest'
 import assert from 'node:assert/strict'
-import { createHoldersClient, embedUrl, isMapOk, HoldersApiError } from '../dist/index.js'
-import { HolderMap } from '../dist/react.js'
+import { createHoldersClient, embedUrl, isMapOk, HoldersApiError } from '../src/holders'
+import { HolderMap } from '../src/holders-react'
 
 const TOKEN = '0x' + 'ab'.repeat(20)
-const reply = (status, body, headers = {}) => async (url, init) => {
+const reply: any = (status: number, body: unknown, headers: Record<string, string> = {}) => async (url: unknown, init: any) => {
   reply.last = { url: String(url), init }
   return new Response(typeof body === 'string' ? body : JSON.stringify(body), { status, headers })
 }
@@ -27,7 +27,7 @@ test('an API key is sent as a bearer token to the chosen base URL', async () => 
 })
 
 test('states without a map are returned, not thrown (404 not-found, 200 unavailable, 429 busy)', async () => {
-  for (const [status, state] of [[404, 'not-found'], [200, 'unavailable'], [429, 'busy'], [502, 'error']]) {
+  for (const [status, state] of [[404, 'not-found'], [200, 'unavailable'], [429, 'busy'], [502, 'error']] as const) {
     const m = await createHoldersClient({ fetch: reply(status, { state, reason: 'why' }) }).getMap('bsc', TOKEN)
     assert.equal(m.state, state)
     assert.equal(isMapOk(m), false)
@@ -37,15 +37,15 @@ test('states without a map are returned, not thrown (404 not-found, 200 unavaila
 
 test('an error with no map throws HoldersApiError with the status and Retry-After', async () => {
   const c = createHoldersClient({ fetch: reply(429, { error: 'Rate limit exceeded' }, { 'retry-after': '12' }) })
-  await assert.rejects(c.getMap('base', TOKEN), (e) => e instanceof HoldersApiError && e.status === 429 && e.retryAfter === 12 && /Rate limit/.test(e.message))
-  await assert.rejects(createHoldersClient({ fetch: reply(400, { error: 'Give a token address or a tracked stock ticker.' }) }).getMap('base', TOKEN), (e) => e.status === 400)
-  await assert.rejects(createHoldersClient({ fetch: async () => { throw new Error('offline') } }).getMap('base', TOKEN), (e) => e.status === 0 && /offline/.test(e.message))
+  await assert.rejects(c.getMap('base', TOKEN), (e: any) => e instanceof HoldersApiError && e.status === 429 && e.retryAfter === 12 && /Rate limit/.test(e.message))
+  await assert.rejects(createHoldersClient({ fetch: reply(400, { error: 'Give a token address or a tracked stock ticker.' }) }).getMap('base', TOKEN), (e: any) => e.status === 400)
+  await assert.rejects(createHoldersClient({ fetch: async () => { throw new Error('offline') } }).getMap('base', TOKEN), (e: any) => e.status === 0 && /offline/.test(e.message))
 })
 
 test('getCsv returns text; a 403 is a HoldersApiError', async () => {
   assert.equal(await createHoldersClient({ fetch: reply(200, 'rank,address\n1,0x1\n') }).getCsv('base', TOKEN), 'rank,address\n1,0x1\n')
   assert.equal(reply.last.url, `https://gullylabs.xyz/api/holders/base/${TOKEN}.csv`)
-  await assert.rejects(createHoldersClient({ fetch: reply(403, { error: 'Pro plan', locked: 'csv' }) }).getCsv('base', TOKEN), (e) => e.status === 403)
+  await assert.rejects(createHoldersClient({ fetch: reply(403, { error: 'Pro plan', locked: 'csv' }) }).getCsv('base', TOKEN), (e: any) => e.status === 403)
 })
 
 test('cardUrl, embedUrl and pageUrl build addresses without any request', () => {
@@ -58,18 +58,24 @@ test('cardUrl, embedUrl and pageUrl build addresses without any request', () => 
 
 test('bad chain or token is rejected before anything is requested', async () => {
   const c = createHoldersClient({ fetch: async () => assert.fail('no request expected') })
-  await assert.rejects(c.getMap('nope', TOKEN), TypeError)
+  await assert.rejects(c.getMap('nope' as any, TOKEN), TypeError)
   await assert.rejects(c.getMap('base', '../x'), TypeError)
   assert.throws(() => c.cardUrl('base', 'a b'), TypeError)
 })
 
 test('<HolderMap> renders the embed iframe with the widget defaults and clamps height', () => {
-  const el = HolderMap({ chain: 'base', token: TOKEN })
+  const el: any = HolderMap({ chain: 'base', token: TOKEN })
   assert.equal(el.type, 'iframe')
   assert.equal(el.props.src, `https://gullylabs.xyz/embed/holders/base/${TOKEN}`)
   assert.equal(el.props.style.height, 760)
   assert.equal(el.props.loading, 'lazy')
-  assert.equal(HolderMap({ chain: 'base', token: TOKEN, height: 500 }).props.style.height, 500)
-  assert.equal(HolderMap({ chain: 'base', token: TOKEN, height: 100 }).props.style.height, 760)
-  assert.match(HolderMap({ chain: 'nope', token: TOKEN }).props.children, /Holder Map/)
+  assert.equal((HolderMap({ chain: 'base', token: TOKEN, height: 500 }) as any).props.style.height, 500)
+  assert.equal((HolderMap({ chain: 'base', token: TOKEN, height: 100 }) as any).props.style.height, 760)
+  assert.match((HolderMap({ chain: 'nope' as any, token: TOKEN }) as any).props.children, /Holder Map/)
+})
+
+test('Gully Chain (485590) is a supported holder chain', async () => {
+  const c = createHoldersClient({ fetch: reply(200, { state: 'ok', nodes: [] }) })
+  await c.getMap('gully', TOKEN)
+  assert.equal(reply.last.url, `https://gullylabs.xyz/api/holders/gully/${TOKEN}`)
 })

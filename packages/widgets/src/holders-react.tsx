@@ -1,4 +1,4 @@
-import { DEFAULT_BASE_URL, HOLDER_CHAINS, embedUrl, type HolderChain } from './index.js'
+import { DEFAULT_BASE_URL, HOLDER_CHAINS, embedUrl, type HolderChain } from './holders.js'
 
 export interface HolderMapProps {
   chain: HolderChain

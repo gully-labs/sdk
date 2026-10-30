@@ -1,0 +1,47 @@
+# gully-labs/sdk: one tag per package release, <name>@<semver> (for example widgets@0.1.0, security@0.1.0,
+# kre8-embed@0.1.0, ads@0.1.0-beta.0). Publishes that one workspace package to npm with provenance.
+# Needs the repo secret NPM_TOKEN (an npm Automation token of the Gully Labs account that owns @gullylabs).
+name: release
+
+on:
+  push:
+    tags: ['*@*']
+
+permissions:
+  contents: read
+  id-token: write # npm provenance (Sigstore)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Resolve the package from the tag
+        id: pkg
+        run: |
+          tag=${GITHUB_REF#refs/tags/}
+          name=${tag%@*}; version=${tag##*@}
+          dir=packages/$name
+          [ -f "$dir/package.json" ] || { echo "no package at $dir"; exit 1; }
+          v=$(node -p "require('./$dir/package.json').version")
+          [ "$v" = "$version" ] || { echo "tag version $version != package.json $v"; exit 1; }
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          # prereleases (0.1.0-beta.0) publish under the beta dist-tag, releases under latest
+          case "$version" in *-*) echo "tag=beta" >> "$GITHUB_OUTPUT" ;; *) echo "tag=latest" >> "$GITHUB_OUTPUT" ;; esac
+      - run: npm ci --ignore-scripts
+      - run: npm run typecheck --if-present
+        working-directory: ${{ steps.pkg.outputs.dir }}
+      - run: npm test
+        working-directory: ${{ steps.pkg.outputs.dir }}
+      - run: npm run build
+        working-directory: ${{ steps.pkg.outputs.dir }}
+      - run: npm pack --dry-run
+        working-directory: ${{ steps.pkg.outputs.dir }}
+      - run: npm publish --provenance --access public --tag ${{ steps.pkg.outputs.tag }}
+        working-directory: ${{ steps.pkg.outputs.dir }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

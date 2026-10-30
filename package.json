@@ -1,16 +1,16 @@
 {
   "name": "gully-sdk",
   "private": true,
-  "description": "Gully Labs SDKs: the stock token tracker client and the embeddable widget.",
+  "description": "Gully Labs SDKs on npm under @gullylabs: widgets (tracker, Holder Map, widget), security, kre8-embed and ads.",
   "license": "MIT",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "npm run build --workspaces",
-    "test": "npm test --workspaces --if-present"
-  },
-  "devDependencies": {
-    "@types/react": "^19.0.0",
-    "react": "^19.0.0",
-    "typescript": "^5.6.0"
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "pack:dry": "npm publish --dry-run --workspaces --access public",
+    "publish": "npm publish --workspaces --access public --provenance"
   }
 }

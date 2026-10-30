@@ -1,5 +1,5 @@
 /**
- * @gullylabs/tracker — a typed client for the Gully Labs stock token tracker API.
+ * @gullylabs/widgets/tracker — a typed client for the Gully Labs stock token tracker API.
  *
  * Every tokenised stock on Robinhood Chain and BNB Chain, priced from its deepest pool on chain
  * against its Chainlink fair price. https://docs.gullylabs.xyz/api

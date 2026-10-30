@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { loadWidget, widgetAttributes, type WidgetOptions } from './index.js'
+import { loadWidget, widgetAttributes, type WidgetOptions } from './widget.js'
 
 export interface GullyWidgetProps extends WidgetOptions {
   /** Load widget.js from your own host instead of gullylabs.xyz. */

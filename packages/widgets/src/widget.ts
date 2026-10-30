@@ -1,8 +1,8 @@
 /**
- * @gullylabs/widget — the Gully Labs tracker widget for any page, plus a React component.
+ * @gullylabs/widgets/widget — the Gully Labs tracker widget for any page, plus a React component.
  *
  * The widget itself is https://gullylabs.xyz/widget.js (also shipped in this package as
- * `@gullylabs/widget/widget.js` for self-hosting). This module only loads it and mounts elements.
+ * `@gullylabs/widgets/widget.js` for self-hosting). This module only loads it and mounts elements.
  */
 
 export type WidgetType = 'ticker' | 'badge' | 'table'
