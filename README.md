@@ -2,8 +2,8 @@
 <p align="center">
   <a href="https://docs.gullylabs.xyz/sdk">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/gully-labs-logo.png">
-      <img alt="Gully Labs" src=".github/assets/gully-labs-logo-on-light.png" width="300">
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/logotype-reversed.svg">
+      <img alt="Gully Labs" src=".github/assets/logotype-color.svg" width="300">
     </picture>
   </a>
 </p>
@@ -84,8 +84,8 @@ Information only, not investment advice. MIT licensed.
 <p align="center">
   <a href="https://gullylabs.xyz">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/powered-by-gully-labs-dark-2x.png">
-      <img alt="Powered by Gully Labs" src=".github/assets/powered-by-gully-labs-light-2x.png" width="254" height="64">
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/powered-by-clear-white.svg">
+      <img alt="Powered by Gully Labs" src=".github/assets/powered-by-clear-navy.svg" width="186" height="64">
     </picture>
   </a>
 </p>
