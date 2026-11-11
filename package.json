@@ -11,6 +11,6 @@
     "test": "npm test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "pack:dry": "npm publish --dry-run --workspaces --access public",
-    "publish": "npm publish --workspaces --access public --provenance"
+    "release": "npm publish --workspaces --access public"
   }
 }

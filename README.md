@@ -2,15 +2,15 @@
 <p align="center">
   <a href="https://docs.gullylabs.xyz/sdk">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/gully-labs-logo.png">
-      <img alt="Gully Labs" src=".github/assets/gully-labs-logo-on-light.png" width="300">
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/logotype-reversed.svg">
+      <img alt="Gully Labs" src=".github/assets/logotype-color.svg" width="300">
     </picture>
   </a>
 </p>
 
 <p align="center"><b>You Think It, We Ship It.</b></p>
 
-<p align="center">Typed client for the stock token tracker API and the embeddable widget (React + vanilla). MIT.</p>
+<p align="center">Typed clients and embeds for Gully Labs products: tracker, Holder Map, Gully Security, kre8.fun and Gully Ads. MIT.</p>
 
 <p align="center">
   <a href="https://gullylabs.xyz"><img src="https://img.shields.io/badge/gullylabs.xyz-00D2FF?style=for-the-badge&labelColor=06050D&logo=googlechrome&logoColor=06050D" alt="Website"></a>
@@ -27,17 +27,14 @@
 
 # Gully Labs SDKs
 
-The Gully Labs packages on npm, all under the `@gullylabs` scope. Every package: ESM + CommonJS builds with TypeScript types, MIT, semver 0.x, a 5-minute quickstart in its README, a CHANGELOG, and a `files` allowlist (no tests, no secrets). Releases are tagged `<package>@<version>` and published with npm provenance by `.github/workflows/release.yml`.
+The Gully Labs packages on npm, all under the `@gullylabs` scope. Every package: ESM + CommonJS builds with TypeScript types, MIT, semver 0.x, a 5-minute quickstart in its README, a CHANGELOG, and a `files` allowlist (no tests, no secrets).
 
-| Package | What it is | Repo |
-|---|---|---|
-| [`@gullylabs/widgets`](packages/widgets) | Stock token tracker client, Holder Map client + `<HolderMap>` (Gully Chain included), the tracker widget + `<GullyWidget>`. Replaces `@gullylabs/tracker`, `@gullylabs/holders`, `@gullylabs/widget`. | here |
-| [`@gullylabs/security`](packages/security) | Gully Security scan-a-token API client and the "Secured by Gully Security" badge web component. | here |
-| [`@gullylabs/kre8-embed`](packages/kre8-embed) | kre8.fun embeds: coin card, Drop / track player and "Back this" button as sandboxed-iframe web components with a React wrapper. | here |
-| [`@gullylabs/ads`](packages/ads) | Gully Ads publisher SDK (beta): ad slot component, signed serve requests, impression and click reporting. | here |
-| `@gullylabs/chain` | Gully Chain SDK: chain objects, addresses, ABIs, launchpad, swap, names, accounts, bridge, indexer, CLI. | [gullychain-sdk](https://github.com/gully-labs/gullychain-sdk) |
-| `@gullylabs/id` | Gully ID client: passkey and email sign-in, Sign in with Gully (OIDC + PKCE). | [gully-id](https://github.com/gully-labs/gully-id) `sdk/` |
-| `@gullylabs/pay` | Gully Pay SDK: x402 client, Agent Wallets, MCP server, wallet and verification helpers. | [gull-pay](https://github.com/gully-labs/gull-pay) `packages/pay-sdk` |
+| Package | What it is |
+|---|---|
+| [`@gullylabs/widgets`](packages/widgets) | Stock token tracker client, Holder Map client + `<HolderMap>` (Gully Chain included), the tracker widget + `<GullyWidget>`. Replaces `@gullylabs/tracker`, `@gullylabs/holders`, `@gullylabs/widget`. |
+| [`@gullylabs/security`](packages/security) | Gully Security scan-a-token API client and the "Secured by Gully Security" badge web component. |
+| [`@gullylabs/kre8-embed`](packages/kre8-embed) | kre8.fun embeds: coin card, Drop / track player and "Back this" button as sandboxed-iframe web components with a React wrapper. |
+| [`@gullylabs/ads`](packages/ads) | Gully Ads publisher SDK (beta): ad slot component, signed serve requests, impression and click reporting. |
 
 Integrate in 5 minutes: https://docs.gullylabs.xyz/integrate (Gully Labs) and https://docs.gullychain.xyz/sdks/ (Gully Chain builders).
 
@@ -63,7 +60,21 @@ Each package is self-contained: `cd packages/<name> && npm install && npm test &
 ## Release
 
 1. Bump `version` in the package's `package.json` and add a `CHANGELOG.md` entry.
-2. Merge to `main`, then `git tag <package>@<version> && git push --tags` (for example `widgets@0.1.0`). Prerelease versions (`0.1.0-beta.0`) publish under the `beta` dist-tag.
-3. `.github/workflows/release.yml` builds, tests and runs `npm publish --provenance --access public` with the `NPM_TOKEN` secret.
+2. Run `npm ci && npm run typecheck && npm test && npm run build` at the root, then `npm publish --dry-run` in the package folder.
+3. Publish from the package folder: `npm publish --access public` (prerelease versions such as `0.1.0-beta.0` with `--tag beta`).
 
-MIT. Built and run by [Gully Labs](https://gullylabs.xyz).
+Information only, not investment advice. MIT. Built and run by [Gully Labs](https://gullylabs.xyz).
+
+
+<!-- gully-footer:start -->
+---
+
+<p align="center">
+  <a href="https://gullylabs.xyz">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/powered-by-clear-white.svg">
+      <img alt="Powered by Gully Labs" src=".github/assets/powered-by-clear-navy.svg" width="186" height="64">
+    </picture>
+  </a>
+</p>
+<!-- gully-footer:end -->

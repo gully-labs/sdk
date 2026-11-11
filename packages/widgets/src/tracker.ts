@@ -4,7 +4,7 @@
  * Every tokenised stock on Robinhood Chain and BNB Chain, priced from its deepest pool on chain
  * against its Chainlink fair price. https://docs.gullylabs.xyz/api
  *
- * No dependencies. Works anywhere `fetch` exists: browsers, Node 18+, Bun, Deno, edge runtimes.
+ * No dependencies. Works anywhere `fetch` exists: browsers, Node 20+, Bun, Deno, edge runtimes.
  */
 
 export type TrackerStatus = 'premium' | 'discount' | 'drifting' | 'in-line' | 'thin' | 'no-pool' | 'pool-unreadable' | 'feed-unreadable'
