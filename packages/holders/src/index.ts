@@ -3,7 +3,7 @@
  *
  * Who holds a token and how the biggest wallets are connected. https://docs.gullylabs.xyz/holder-map-integrate
  *
- * No dependencies. Works anywhere `fetch` exists: browsers, Node 18+, Bun, Deno, edge runtimes.
+ * No dependencies. Works anywhere `fetch` exists: browsers, Node 20+, Bun, Deno, edge runtimes.
  */
 
 /** The chains the Holder Map runs on. */
