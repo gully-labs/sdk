@@ -31,7 +31,7 @@ Build on the Gully Labs stock token tracker: every tokenised stock on Robinhood 
 
 | Package | What it is |
 |---|---|
-| [`@gullylabs/tracker`](packages/tracker) | A typed client for the tracker API. No dependencies; runs in browsers, Node 18+, Bun, Deno and edge runtimes. |
+| [`@gullylabs/tracker`](packages/tracker) | A typed client for the tracker API. No dependencies; runs in browsers, Node 20+, Bun, Deno and edge runtimes. |
 | [`@gullylabs/widget`](packages/widget) | The embeddable widget (ticker, badge, table) with a loader and a React component. |
 | [`@gullylabs/holders`](packages/holders) | A typed client for the Holder Map API (who holds a token, wallet clusters) and a React component that frames the map. |
 
