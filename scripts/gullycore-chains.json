@@ -1,0 +1,55 @@
+{
+  "source": "https://gullycore.xyz/manifest.json",
+  "generated": "2026-11-11",
+  "chains": [
+    {
+      "chainId": 6714,
+      "key": "anubis",
+      "name": "Anubis Network",
+      "kind": "mainnet",
+      "status": "live"
+    },
+    {
+      "chainId": 485590,
+      "key": "gully-chain-testnet",
+      "name": "Gully Chain Testnet",
+      "kind": "testnet",
+      "status": "testnet"
+    },
+    {
+      "chainId": 4663,
+      "key": "robinhood",
+      "name": "Robinhood Chain",
+      "kind": "mainnet",
+      "status": "live"
+    },
+    {
+      "chainId": 8453,
+      "key": "base",
+      "name": "Base",
+      "kind": "mainnet",
+      "status": "live"
+    },
+    {
+      "chainId": 56,
+      "key": "bnb",
+      "name": "BNB Chain",
+      "kind": "mainnet",
+      "status": "live"
+    },
+    {
+      "chainId": 999,
+      "key": "hyperevm",
+      "name": "HyperEVM",
+      "kind": "mainnet",
+      "status": "coming"
+    },
+    {
+      "chainId": 99901,
+      "key": "elysium",
+      "name": "Kinetiq Elysium",
+      "kind": "mainnet",
+      "status": "live"
+    }
+  ]
+}
