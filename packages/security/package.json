@@ -10,7 +10,7 @@
     "./dist/badge.cjs"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "homepage": "https://gullysecurity.xyz",
   "bugs": {
@@ -91,6 +91,19 @@
     },
     "./assets/*": "./assets/*",
     "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "badge": [
+        "./dist/badge.d.ts"
+      ],
+      "badge.js": [
+        "./dist/badge.d.ts"
+      ],
+      "react": [
+        "./dist/react.d.ts"
+      ]
+    }
   },
   "scripts": {
     "build": "tsup",

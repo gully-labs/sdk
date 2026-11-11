@@ -82,6 +82,28 @@
     "./widget.js": "./widget.js",
     "./package.json": "./package.json"
   },
+  "typesVersions": {
+    "*": {
+      "tracker": [
+        "./dist/tracker.d.ts"
+      ],
+      "holders": [
+        "./dist/holders.d.ts"
+      ],
+      "holders/react": [
+        "./dist/holders-react.d.ts"
+      ],
+      "widget": [
+        "./dist/widget.d.ts"
+      ],
+      "widget/react": [
+        "./dist/widget-react.d.ts"
+      ],
+      "react": [
+        "./dist/react.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist",
     "widget.js",
@@ -93,7 +115,7 @@
     "./widget.js"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "peerDependencies": {
     "react": ">=18"

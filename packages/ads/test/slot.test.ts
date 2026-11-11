@@ -5,7 +5,7 @@ import { defineAdSlot, GullyAdSlot } from '../src/slot'
 import type { AdCreative, ServeSignatureHeaders } from '../src/types'
 import { AD } from './fixtures'
 
-const SITE_KEY = 'sk_test_0123456789abcdefghijkl'
+const SITE_KEY = 'sk_fixture_xxxxxxxxxxxxxxxxxxxx'
 const HEADERS = { 'x-gully-key': 'pk_test_site_000000000001', 'x-gully-timestamp': '1793361600', 'x-gully-nonce': 'nonce_test_0000000001', 'x-gully-signature': 'c4ed456aed1237e2be36ca1bf6ad384f63c8df46f62893fedea4ae10f3badefd' }
 const json = (body: unknown, status = 200) => ({ ok: status >= 200 && status < 300, status, json: async () => body }) as unknown as Response
 

@@ -1,17 +1,16 @@
 /**
- * @gullylabs/ads/server: runs on the publisher's backend (Node 18+, Deno, Bun, Cloudflare Workers; WebCrypto only).
+ * @gullylabs/ads/server: runs on the publisher's backend (Node 20+, Deno, Bun, Cloudflare Workers; WebCrypto only).
  *
- * Signature scheme = the Gully Offerwall S2S signature, applied to the serve query string. Mirrors
- * gully-labs/gully-offerwall `api/src/crypto.ts`:
+ * Signature scheme = the Gully Offerwall S2S signature, applied to the serve query string:
  *
  *   hex HMAC-SHA256(secret, `${timestamp}.${nonce}.${rawBody}`)
  *   Headers: X-Gully-Key, X-Gully-Timestamp (unix seconds), X-Gully-Nonce (16-64 url-safe chars), X-Gully-Signature.
- *   POSTBACK_WINDOW_SECONDS = 300
+ *   Window: 300 seconds either way
  *
- * and the verifier `Offerwall.postback` in `api/src/offerwall.ts` (header presence, nonce regex, constant-time hex compare,
+ * and the Offerwall's verifier (header presence, nonce regex, constant-time hex compare,
  * 5-minute window, nonce never reused). For a serve request `rawBody` is the query string after `?` (a GET has no body).
  * The key id is the placement's publishable key `pk_…`, the secret is the placement secret `sk_…` (shown once when the
- * placement is created, `createPlacement` / `rotatePlacementSecret` in api/src/offerwall.ts).
+ * placement is created or rotated).
  */
 import { canonicalServeQuery, NONCE } from './canonical'
 import type { ServeQuery, ServeSignatureHeaders, SignedServe } from './types'
@@ -19,14 +18,14 @@ import type { ServeQuery, ServeSignatureHeaders, SignedServe } from './types'
 export { canonicalServeQuery } from './canonical'
 export type { ServeQuery, ServeSignatureHeaders, SignedServe } from './types'
 
-/** `POSTBACK_WINDOW_SECONDS` in api/src/crypto.ts */
+/** The signature window: 300 seconds either way. */
 export const SERVE_SIGNATURE_WINDOW_SECONDS = 300
 
 const enc = new TextEncoder()
 
 function subtle(): SubtleCrypto {
   const c = (globalThis as { crypto?: Crypto }).crypto
-  if (!c?.subtle) throw new Error('@gullylabs/ads/server needs WebCrypto (globalThis.crypto.subtle): Node 18+, Deno, Bun or Workers')
+  if (!c?.subtle) throw new Error('@gullylabs/ads/server needs WebCrypto (globalThis.crypto.subtle): Node 20+, Deno, Bun or Workers')
   return c.subtle
 }
 
@@ -35,13 +34,13 @@ const toHex = (buf: ArrayBuffer) =>
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('')
 
-/** hex HMAC-SHA256(secret, message), same bytes as `hmacHex` in api/src/crypto.ts (utf8 secret and message). */
+/** hex HMAC-SHA256(secret, message), same bytes as `hmacHex` (utf8 secret and message). */
 export async function hmacSha256Hex(secret: string, message: string): Promise<string> {
   const key = await subtle().importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
   return toHex(await subtle().sign('HMAC', key, enc.encode(message)))
 }
 
-/** `signPostback(secret, timestamp, nonce, rawBody)` of api/src/crypto.ts, with the query string as the body. */
+/** `signPostback(secret, timestamp, nonce, rawBody)`, with the query string as the body. */
 export const serveMessage = (timestamp: number, nonce: string, query: string) => `${timestamp}.${nonce}.${query}`
 
 /** 18 random bytes as base64url: 24 chars, inside the server's 16-64 url-safe window. */
@@ -105,7 +104,7 @@ export function createServeSigner(o: { siteId: string; siteKey: string; allowSlo
   }
 }
 
-/** constant-time hex compare, `safeEqualHex` in api/src/crypto.ts */
+/** constant-time hex compare, `safeEqualHex` */
 export function safeEqualHex(a: string, b: string): boolean {
   if (!/^[0-9a-f]*$/i.test(a) || !/^[0-9a-f]*$/i.test(b)) return false
   if (a.length !== b.length || a.length === 0) return false
@@ -131,7 +130,7 @@ export interface VerifyServeOptions {
 export type VerifyResult = { ok: true; keyId: string; timestamp: number; nonce: string } | { ok: false; code: VerifyFailure; error: string }
 
 /**
- * The verifier, ported from `Offerwall.postback` (api/src/offerwall.ts): same checks, same order, same error codes.
+ * The verifier, ported from the Offerwall's postback verifier: same checks, same order, same error codes.
  * Use it on the Offerwall API (or any relay) to verify what `signServeRequest` produced.
  */
 export async function verifyServeRequest(o: VerifyServeOptions): Promise<VerifyResult> {

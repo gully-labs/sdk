@@ -1,7 +1,7 @@
 {
   "name": "@gullylabs/ads",
   "version": "0.1.0-beta.0",
-  "description": "Gully Ads publisher SDK (beta): the <gully-ad-slot> web component, a React wrapper, a typed client for the Gully Ads serve/events API and a server helper that signs serve requests with the placement secret (WebCrypto, Node 18+/edge).",
+  "description": "Gully Ads publisher SDK (beta): the <gully-ad-slot> web component, a React wrapper, a typed client for the Gully Ads serve/events API and a server helper that signs serve requests with the placement secret (WebCrypto, Node 20+/edge).",
   "license": "MIT",
   "author": "Gully Labs",
   "type": "module",
@@ -51,6 +51,19 @@
     },
     "./package.json": "./package.json"
   },
+  "typesVersions": {
+    "*": {
+      "server": [
+        "./dist/server.d.ts"
+      ],
+      "react": [
+        "./dist/react.d.ts"
+      ],
+      "define": [
+        "./dist/define.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist",
     "README.md",
@@ -62,7 +75,7 @@
     "./dist/define.cjs"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "peerDependencies": {
     "react": ">=18"

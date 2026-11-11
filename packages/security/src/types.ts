@@ -1,5 +1,4 @@
-// Response shapes of the Gully Security API (gullysecurity.xyz), as the server writes them
-// (gully-security server/security-routes.mjs, server/gully-score.mjs, server/security/schema.mjs).
+// Response shapes of the Gully Security API (gullysecurity.xyz), as the server writes them.
 
 import type { SecurityChainKey } from './chains'
 

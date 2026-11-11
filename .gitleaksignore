@@ -1,0 +1,4 @@
+# Test fixtures (fake placement secrets) in commit 57d5189; replaced since.
+57d5189086511dcfe414befce7728e523932a882:packages/ads/test/server.test.ts:stripe-access-token:15
+57d5189086511dcfe414befce7728e523932a882:packages/ads/test/client.test.ts:stripe-access-token:6
+57d5189086511dcfe414befce7728e523932a882:packages/ads/test/slot.test.ts:stripe-access-token:8

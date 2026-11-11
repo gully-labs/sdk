@@ -1,9 +1,8 @@
 # @gullylabs/ads
 
-> **Beta: Gully Ads is not live yet.** Production runs with `ADS_ENABLED=0`, so `GET /v1/ads/serve` answers
-> `{ ads: [], reason: "ads_disabled" }` (or 404 on older deploys) and every slot collapses. The package is published
-> under the npm dist-tag `beta`; install it with `@beta`. The API shapes below are the server's as of 2026-10-30
-> (gully-labs/gully-offerwall `api/src/ads.ts`, `api/src/ads-routes.ts`).
+> **Beta: Gully Ads is not live yet.** Until it launches, `GET /v1/ads/serve` answers
+> `{ ads: [], reason: "ads_disabled" }` (or 404) and every slot collapses. The package is published
+> under the npm dist-tag `beta`; install it with `@beta`. The API shapes below are the server's as of 2026-10-30.
 
 Publisher SDK for **Gully Ads**, the contextual, tracker-free ad network of the Gully Chain app ([kre8.fun](https://kre8.fun)),
 built into the Gully Offerwall service. Shows Gully Ads creatives on your site or app, counts viewable impressions and
@@ -20,7 +19,7 @@ Four entries:
 | `@gullylabs/ads` | browser | `GullyAds` client, `GullyAdSlot` element class, `defineAdSlot()`, types |
 | `@gullylabs/ads/define` | browser | side-effect import: registers `<gully-ad-slot>` |
 | `@gullylabs/ads/react` | browser (React 18+) | `<AdSlot />` wrapper (react is an optional peer) |
-| `@gullylabs/ads/server` | Node 18+, Deno, Bun, Workers | `signServeRequest`, `createServeSigner`, `verifyServeRequest` (WebCrypto) |
+| `@gullylabs/ads/server` | Node 20+, Deno, Bun, Workers | `signServeRequest`, `createServeSigner`, `verifyServeRequest` (WebCrypto) |
 
 ## 5-minute quickstart
 
@@ -102,13 +101,11 @@ Gully Ads off), so it never leaves an empty box.
 
 ## The signing scheme, and why the key stays on the server
 
-The Offerwall's 2026-10 security review found that `GET /v1/ads/serve` trusts the `creator` named by the client, so
-anyone could point creator earnings at their own wallet (`docs/security-review-2026-10.md`, finding 2). The fix the
-review calls for is a signed serve request: only a publisher holding the placement secret can name a creator.
+A serve request names the creator who earns from the slot, so it is signed: only a publisher holding the placement
+secret can name a creator, and the secret never reaches the browser.
 
-This SDK uses the Offerwall's **existing** server-to-server signature, the one its postbacks and reward callbacks already
-use (`api/src/crypto.ts` `signPostback`, verified in `api/src/offerwall.ts` `Offerwall.postback`), applied to the serve
-query string:
+This SDK uses the Gully Offerwall's server-to-server signature, the same one its postbacks and reward callbacks use,
+applied to the serve query string:
 
 ```
 message   = `${timestamp}.${nonce}.${query}`        query = the string after "?" (keys sorted by the SDK)
@@ -122,7 +119,7 @@ X-Gully-Signature:  the hex HMAC
 
 `signServeRequest` produces it with WebCrypto; `verifyServeRequest` is the verifier ported line for line (same checks,
 same order, same error codes `bad_postback` / `stale` / `replay`). The tests prove the SDK signature equals the
-Offerwall's `signPostback` on a fixed vector and on random inputs.
+Offerwall's own signer on a fixed vector and on random inputs.
 
 Why the browser never sees `sk_…`: anything in a bundle is public, and the secret authorises **who gets paid**. So the
 browser builds the query, posts it to *your* `sign-url`, gets back the four headers, and sends the serve request itself.

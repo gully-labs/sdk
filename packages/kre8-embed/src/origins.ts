@@ -1,6 +1,6 @@
 /**
  * Which origins an embed may be loaded from. The embed pages live on the kre8 app host (kre8.fun; app.gullychain.xyz is
- * the older alias of the same app, see gully-street src/config/serviceHosts.ts). A host page can pick one of these or,
+ * the older alias of the same app). A host page can pick one of these or,
  * explicitly, a development origin (http://localhost:<port>, http://127.0.0.1:<port> or any https origin). Nothing else.
  */
 export const DEFAULT_EMBED_ORIGIN = 'https://kre8.fun'
@@ -10,7 +10,7 @@ export const ALLOWED_EMBED_ORIGINS: readonly string[] = ['https://kre8.fun', 'ht
 /** Gully Chain testnet, the only chain kre8 coins live on today. */
 export const GULLY_CHAIN_ID = 485590
 
-/** Public read-only APIs the data client talks to (gully-street src/lib/indexerApi.ts, src/config/serviceHosts.ts). */
+/** Public read-only APIs the data client talks to. */
 export const DEFAULT_INDEXER_URL = 'https://indexer.gullychain.xyz'
 export const DEFAULT_SOCIAL_URL = 'https://social.kre8.fun'
 

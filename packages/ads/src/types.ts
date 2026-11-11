@@ -1,9 +1,9 @@
 /**
- * Types mirrored from the Gully Offerwall API (gully-labs/gully-offerwall, api/src/ads.ts and api/src/ads-pricing.ts).
+ * Types mirrored from the Gully Offerwall API.
  * Field names are the server's; nothing here is invented.
  */
 
-/** Slot ids: `SLOTS` in api/src/ads-pricing.ts (also published at GET /v1/ads/slots). */
+/** Slot ids: `SLOTS` (also published at GET /v1/ads/slots). */
 export type AdSlotName =
   | 'watch_preroll'
   | 'watch_midroll'
@@ -29,10 +29,10 @@ export type AdSlotName =
 
 export type AdType = 'video' | 'audio' | 'sponsored_post' | 'banner' | 'sponsorship' | 'featured' | 'quest'
 
-/** `CONTENT_PRICES` in api/src/ads-pricing.ts */
+/** `CONTENT_PRICES` */
 export type ContentPrice = 'free' | 'members' | 'rent' | 'collectors' | 'ppv'
 
-/** `serveQuery` in api/src/ads.ts: the query string of GET /v1/ads/serve. */
+/** `serveQuery`: the query string of GET /v1/ads/serve. */
 export interface ServeQuery {
   slot: AdSlotName
   page?: string
@@ -73,7 +73,7 @@ export interface AdAudio {
   playbackUrl: string | null
 }
 
-/** One ad of `GET /v1/ads/serve` (`ads.push({...})` in `Ads.serve`, api/src/ads.ts). */
+/** One ad of `GET /v1/ads/serve` (`ads.push({...})` in `Ads.serve`,). */
 export interface AdCreative {
   /** one-time serve id `srv_…`: the impression/click token */
   serve: string
@@ -131,7 +131,7 @@ export interface ServeResponse {
   status?: number
 }
 
-/** `eventBody.kind` in api/src/ads.ts */
+/** `eventBody.kind` */
 export type AdEventKind = 'impression' | 'click' | 'complete' | 'skip'
 
 export interface TrackResult {
@@ -140,11 +140,11 @@ export interface TrackResult {
   billed?: string
 }
 
-/** `REPORT_REASONS` in api/src/ads.ts */
+/** `REPORT_REASONS` */
 export type ReportReason = 'misleading' | 'scam' | 'offensive' | 'sexual' | 'illegal' | 'wrong_label' | 'too_loud' | 'other'
 
 /**
- * The four headers of the Offerwall S2S signature (api/src/crypto.ts, `signPostback` doc comment):
+ * The four headers of the Offerwall S2S signature:
  * X-Gully-Key, X-Gully-Timestamp (unix seconds), X-Gully-Nonce (16-64 url-safe chars), X-Gully-Signature (hex HMAC-SHA256).
  */
 export interface ServeSignatureHeaders extends Record<string, string> {

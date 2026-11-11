@@ -5,7 +5,7 @@ badge as a web component (plus a React wrapper). Gully Security runs AI Security
 mainnets and Gully Chain (485590), publishes reports and computes the Gully Score, a 0 to 100 reading of how a
 contract is controlled, built from public evidence only.
 
-No runtime dependencies. ESM and CommonJS. Node 18+ and modern browsers.
+No runtime dependencies. ESM and CommonJS. Node 20+ and modern browsers.
 
 ## Install
 

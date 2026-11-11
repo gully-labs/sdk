@@ -12,8 +12,8 @@ export type HolderChain = 'gully' | 'robinhood' | 'bsc' | 'base' | 'hyperevm' | 
 
 export const HOLDER_CHAINS: readonly HolderChain[] = ['gully', 'robinhood', 'bsc', 'base', 'hyperevm', 'solana']
 
-/** What a map was drawn for: a DeepCore launch, or a stock token the tracker follows. */
-export type HolderMapKind = 'stock' | 'deepcore-launch' | (string & {})
+/** What a map was drawn for: a stock token the tracker follows, or any other token. */
+export type HolderMapKind = 'stock' | (string & {})
 
 export interface HolderChainInfo {
   key: HolderChain
@@ -23,7 +23,7 @@ export interface HolderChainInfo {
 
 /** What an address is, when a source says so. Pools, locks, burn and exchanges are never counted as wallets. */
 export interface HolderLabel {
-  kind: 'deployer' | 'pool' | 'lock' | 'burn' | 'token' | 'deepcore' | 'router' | 'gully' | 'exchange' | 'known' | (string & {})
+  kind: 'deployer' | 'pool' | 'lock' | 'burn' | 'token' | 'router' | 'gully' | 'exchange' | 'known' | (string & {})
   name: string
 }
 

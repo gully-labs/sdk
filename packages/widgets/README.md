@@ -10,7 +10,7 @@ Gully Labs data clients and embeds in one package:
 | `@gullylabs/widgets/widget` | Loader for the tracker widget (ticker, badge, table). React: `@gullylabs/widgets/widget/react`. |
 | `@gullylabs/widgets` | All three clients. `@gullylabs/widgets/react`: both components. |
 
-No runtime dependencies. ESM and CommonJS builds with TypeScript types. Works anywhere `fetch` exists: browsers, Node 18+, Bun, Deno, edge runtimes.
+No runtime dependencies. ESM and CommonJS builds with TypeScript types. Works anywhere `fetch` exists: browsers, Node 20+, Bun, Deno, edge runtimes.
 
 It replaces `@gullylabs/holders`, `@gullylabs/tracker` and `@gullylabs/widget` (same APIs; only the import path changes).
 

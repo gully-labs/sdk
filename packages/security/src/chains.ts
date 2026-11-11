@@ -1,5 +1,4 @@
-// The chains Gully Security scans and scores (gully-security server/security-contract.mjs SCAN_CHAINS and
-// server/chains.mjs SCORE_CHAIN_LIST). Keys are what the API takes in paths and scan inputs.
+// The chains Gully Security scans and scores. Keys are what the API takes in paths and scan inputs.
 
 export type SecurityChainKey = 'ethereum' | 'base' | 'arbitrum' | 'optimism' | 'polygon' | 'bnb' | 'avalanche' | 'gully'
 

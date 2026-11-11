@@ -1,12 +1,12 @@
 /**
  * Read-only client for kre8's public data, no iframe, no auth. Two services, both public:
  *
- *  - Gully Chain indexer (gully-ops l3/indexer, CORS *): `GET /tokens/:addr`, `GET /tokens/:addr/candles?tf=&limit=`,
- *    `GET /tokens`, `GET /head` (same calls as gully-street src/lib/indexerApi.ts).
- *  - kre8 social API (gully-street services/social, API.md): `GET /v1/tracks/:id`, `GET /v1/tracks/:id/plays?days=`,
+ *  - Gully Chain indexer (CORS *): `GET /tokens/:addr`, `GET /tokens/:addr/candles?tf=&limit=`,
+ *    `GET /tokens`, `GET /head` (the same calls the kre8 app makes).
+ *  - kre8 social API: `GET /v1/tracks/:id`, `GET /v1/tracks/:id/plays?days=`,
  *    `GET /v1/creators/:address`, `GET /v1/creators/:address/tracks`, `GET /v1/creators/trending?limit=`,
  *    `GET /v1/profiles/:address`. Its CORS allowlist is kre8.fun and app.gullychain.xyz only, so call these from a
- *    server (Node 18+) or through your own proxy; from a third-party browser page they are blocked.
+ *    server (Node 20+) or through your own proxy; from a third-party browser page they are blocked.
  *  - kre8 app host: `GET /embed/coin/:addr.json` (CORS *), the coin card's own numbers.
  *
  * Every response is validated; a field the server did not send is null, never guessed.

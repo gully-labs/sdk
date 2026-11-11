@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { canonicalServeQuery, createServeSigner, randomNonce, SERVE_SIGNATURE_WINDOW_SECONDS, signServeRequest, verifyServeRequest } from '../src/server'
 
 /**
- * Fixture: the Offerwall's own signer, copied from gully-labs/gully-offerwall api/src/crypto.ts
+ * Fixture: the Offerwall's own signer, as the Offerwall API implements it
  *   export const hmacHex = (secret, msg) => createHmac('sha256', secret).update(msg).digest('hex')
  *   export const signPostback = (secret, timestamp, nonce, rawBody) => hmacHex(secret, `${timestamp}.${nonce}.${rawBody}`)
  * The SDK's WebCrypto signature must equal this byte for byte.
@@ -12,12 +12,12 @@ const hmacHex = (secret: string, msg: string) => createHmac('sha256', secret).up
 const signPostback = (secret: string, timestamp: number, nonce: string, rawBody: string) => hmacHex(secret, `${timestamp}.${nonce}.${rawBody}`)
 
 const SITE_ID = 'pk_test_site_000000000001'
-const SITE_KEY = 'sk_test_0123456789abcdefghijkl'
+const SITE_KEY = 'sk_fixture_xxxxxxxxxxxxxxxxxxxx'
 const TS = 1793361600 // 2026-10-30T12:00:00Z
 const NONCE = 'nonce_test_0000000001'
 const QUERY = 'content=vid_1&creator=channel%3Aabc&n=1&slot=watch_rail'
 // known vector, computed once with node:crypto for the values above
-const VECTOR = 'c4ed456aed1237e2be36ca1bf6ad384f63c8df46f62893fedea4ae10f3badefd'
+const VECTOR = '4050431583c8e21127a9074df118a0a96dd43582362d14de1ce5ac876f69db3b'
 
 describe('serve request signing (Offerwall postback scheme over the query string)', () => {
   it('canonical query: sorted keys, booleans as 1/0, undefined dropped, URLSearchParams encoding', () => {

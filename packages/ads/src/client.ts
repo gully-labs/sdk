@@ -1,5 +1,5 @@
 /**
- * Browser-safe client for the public Gully Ads routes (api/src/ads-routes.ts, "the app (public, no trackers, no PII)"):
+ * Browser-safe client for the public Gully Ads routes ("the app (public, no trackers, no PII)"):
  *   GET  /v1/ads/serve?<query>      -> { ads, reason }
  *   POST /v1/ads/events             { serve, kind: impression|click|complete|skip, visibleMs }
  *   GET  /v1/ads/click/:serve       302 to the advertiser (counts the click)
@@ -80,8 +80,8 @@ export class GullyAds {
 
   /**
    * Ask for ads. Must be called from the viewer's browser: the server ties the serve to a daily viewer hash of
-   * ip + user agent (`Ads.viewer`, api/src/ads.ts) and later rejects impressions from any other viewer.
-   * A 404 (route absent while ADS_ENABLED=0) becomes `{ ads: [], reason: 'ads_disabled', status: 404 }`.
+   * ip + user agent and later rejects impressions from any other viewer.
+   * A 404 (the serve route is absent while Gully Ads is off) becomes `{ ads: [], reason: 'ads_disabled', status: 404 }`.
    */
   async serve(q: ServeQuery): Promise<ServeResponse> {
     const query = canonicalServeQuery(q)

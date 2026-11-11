@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { GullyAds } from '../src/client'
 import { AD } from './fixtures'
 
-const SITE_KEY = 'sk_test_0123456789abcdefghijkl'
+const SITE_KEY = 'sk_fixture_xxxxxxxxxxxxxxxxxxxx'
 const HEADERS = { 'x-gully-key': 'pk_test_site_000000000001', 'x-gully-timestamp': '1793361600', 'x-gully-nonce': 'nonce_test_0000000001', 'x-gully-signature': 'c4ed456aed1237e2be36ca1bf6ad384f63c8df46f62893fedea4ae10f3badefd' }
 
 
@@ -49,7 +49,7 @@ describe('GullyAds client', () => {
     expect(f).not.toHaveBeenCalled()
   })
 
-  it('serve: 404 (ADS_ENABLED=0, route absent) collapses to ads_disabled; 200 ads_disabled passes through', async () => {
+  it('serve: 404 (Gully Ads off, route absent) collapses to ads_disabled; 200 ads_disabled passes through', async () => {
     const ads404 = new GullyAds({ fetch: (async () => new Response('{"error":"not found","code":"not_found"}', { status: 404 })) as unknown as typeof fetch })
     expect(await ads404.serve({ slot: 'home_feed' })).toEqual({ ads: [], reason: 'ads_disabled', status: 404 })
     const adsOff = new GullyAds({ fetch: (async () => json({ ads: [], reason: 'ads_disabled' })) as unknown as typeof fetch })

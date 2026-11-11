@@ -13,7 +13,7 @@ Put kre8.fun on your own site: a Gully Chain coin card with a live sparkline, a 
 npm install @gullylabs/kre8-embed
 ```
 
-Node 18+ for the client; any evergreen browser for the elements. React is an optional peer (18+).
+Node 20+ for the client; any evergreen browser for the elements. React is an optional peer (18+).
 
 ## 5-minute quickstart
 
@@ -168,7 +168,7 @@ Anything else is dropped silently. Money never moves on your page: the only outb
 | `trendingCreators(limit)` | social `GET /v1/creators/trending?limit=` | 7-day window, <= 30 |
 | `profile(address)` | social `GET /v1/profiles/:address` | followers, following, posts, points, verified, official |
 
-Defaults: `https://indexer.gullychain.xyz` (CORS `*`, usable from any browser page) and `https://social.kre8.fun`. The social API's CORS allowlist is kre8.fun and app.gullychain.xyz only, so call its methods from a server (Node 18+) or through your own proxy. Fields the server did not send come back as `null`; nothing is estimated.
+Defaults: `https://indexer.gullychain.xyz` (CORS `*`, usable from any browser page) and `https://social.kre8.fun`. The social API's CORS allowlist is kre8.fun and app.gullychain.xyz only, so call its methods from a server (Node 20+) or through your own proxy. Fields the server did not send come back as `null`; nothing is estimated.
 
 ## Links
 

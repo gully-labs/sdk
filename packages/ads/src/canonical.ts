@@ -16,10 +16,10 @@ export function canonicalServeQuery(q: ServeQuery): string {
   return new URLSearchParams(pairs).toString()
 }
 
-/** `/^srv_[\w-]{10,40}$/` (`eventBody.serve`, api/src/ads.ts) */
+/** `/^srv_[\w-]{10,40}$/` */
 export const SERVE_ID = /^srv_[\w-]{10,40}$/
 
-/** `/^[A-Za-z0-9_-]{16,64}$/` (`Offerwall.postback`, api/src/offerwall.ts) */
+/** `/^[A-Za-z0-9_-]{16,64}$/` (the Offerwall's nonce rule) */
 export const NONCE = /^[A-Za-z0-9_-]{16,64}$/
 
 export const DEFAULT_BASE_URL = 'https://offers.kre8.fun'

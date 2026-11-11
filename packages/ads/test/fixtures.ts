@@ -1,6 +1,6 @@
 import type { AdCreative } from '../src/types'
 
-/** one banner creative as `Ads.serve` returns it (api/src/ads.ts) */
+/** one banner creative as `Ads.serve` returns it */
 export const AD: AdCreative = {
   serve: 'srv_abcdefghijklmnopqrstuv',
   label: 'Sponsored',

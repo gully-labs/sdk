@@ -1,6 +1,5 @@
 /**
- * Embed page URLs and kre8 links. The id rules are the server's (gully-street services/social src/share.ts ID_RULES
- * and src/lib/router.ts): a coin is a 0x address, a track id is 8..24 URL-safe chars, video / short / live ids are
+ * Embed page URLs and kre8 links. The id rules are the kre8 app's: a coin is a 0x address, a track id is 8..24 URL-safe chars, video / short / live ids are
  * 1..64 URL-safe chars, a creator is a 0x address or a .gully handle.
  */
 import { GULLY_CHAIN_ID } from './origins'
@@ -8,7 +7,7 @@ import { GULLY_CHAIN_ID } from './origins'
 export type EmbedKind = 'coin' | 'track' | 'video' | 'short' | 'live'
 export const EMBED_KINDS: readonly EmbedKind[] = ['coin', 'track', 'video', 'short', 'live']
 
-/** Default iframe sizes (players: gully-street services/social src/growth.ts EMBED_SIZE; the coin card resizes itself). */
+/** Default iframe sizes (the coin card resizes itself). */
 export const EMBED_SIZE: Record<EmbedKind, { width: number; height: number }> = {
   coin: { width: 360, height: 236 },
   track: { width: 480, height: 152 },
@@ -99,7 +98,7 @@ export function coinUrl(embedOrigin: string, address: string): string {
 
 /**
  * The kre8 page where a creator can be backed: `/@<handle>` for a .gully name, `/address/<0x>` for a wallet
- * (gully-street src/lib/router.ts). Every money action (tips, memberships, coins) happens there, signed in on kre8,
+ * on kre8.fun. Every money action (tips, memberships, coins) happens there, signed in on kre8,
  * never on the host page. Pure.
  */
 export function backUrl(embedOrigin: string, creator: string): string {
@@ -110,7 +109,7 @@ export function backUrl(embedOrigin: string, creator: string): string {
   throw new Error('kre8-embed: creator must be a 0x address or a .gully handle')
 }
 
-/** The kre8 kit logo files served byte-identical from the app host (gully-street services/social src/embed.ts). */
+/** The kre8 kit logo files served byte-identical from the app host. */
 export const kitIconUrl = (embedOrigin: string) => `${embedOrigin}/embed/brand/kre8-icon-128.png`
 export const kitWordmarkUrl = (embedOrigin: string) => `${embedOrigin}/embed/brand/kre8-wordmark-128h.png`
 

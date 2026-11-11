@@ -36,7 +36,10 @@ export interface AdSlotEventMap {
   'gully-ad:error': CustomEvent<{ error: unknown }>
 }
 
-export class GullyAdSlot extends HTMLElement {
+/** SSR-safe base: Node has no HTMLElement, so importing the package on a server must not throw. */
+const SlotBase: typeof HTMLElement = typeof HTMLElement === 'undefined' ? (class {} as unknown as typeof HTMLElement) : HTMLElement
+
+export class GullyAdSlot extends SlotBase {
   static get observedAttributes() {
     return [...ATTRS]
   }
