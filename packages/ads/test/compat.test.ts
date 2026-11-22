@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest'
-import * as swoop from '../../swoop/src/index'
-import * as swoopServer from '../../swoop/src/server'
+import * as swoop from '@swoopads/sdk'
+import * as swoopServer from '@swoopads/sdk/server'
 import * as old from '../src/index'
 import * as oldServer from '../src/server'
 
