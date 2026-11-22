@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<style>html,body{margin:0;padding:0;background:transparent}</style>
+</head>
+<body>
+<div id="swoop"></div>
+<script>
+/* Swoop Ads unit for a phone or game web view. The app replaces the four {{...}} words below, then loads this page with a
+   base address that is listed on the Spot (https://app.example.com). The page asks for one sponsored unit, then tells the app
+   how tall it is and whether it is filled, empty or viewed, through whichever bridge the app registered. */
+(function () {
+  var API = 'https://offers.kre8.fun'
+  var cfg = { spot: '{{SPOT}}', unit: '{{UNIT}}', theme: '{{THEME}}', slot: '{{SLOT}}' }
+  function send(msg) {
+    var s = JSON.stringify(msg)
+    try {
+      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.swoop) return window.webkit.messageHandlers.swoop.postMessage(s) // iOS WKWebView
+      if (window.SwoopBridge && window.SwoopBridge.post) return window.SwoopBridge.post(s) // Android addJavascriptInterface
+      if (window.Unity && window.Unity.call) return window.Unity.call(s) // Unity web view plugins
+    } catch (e) {}
+  }
+  window.addEventListener('message', function (e) {
+    var m = e.data
+    if (e.origin !== API || !m || typeof m !== 'object' || typeof m.type !== 'string' || m.type.indexOf('swoop:') !== 0) return
+    if (m.type === 'swoop:height') send({ type: 'height', h: Math.max(0, Math.min(Number(m.h) || 0, 1200)) })
+    else if (m.type === 'swoop:state') send({ type: 'state', state: String(m.state).slice(0, 12), reason: m.reason ? String(m.reason).slice(0, 40) : null })
+  })
+  var s = document.createElement('script')
+  s.src = 'https://swoopads.xyz/t.js'
+  s.async = true
+  s.setAttribute('data-spot', cfg.spot)
+  s.setAttribute('data-unit', cfg.unit)
+  s.setAttribute('data-theme', cfg.theme)
+  if (/^[a-z0-9_]{2,32}$/.test(cfg.slot)) s.setAttribute('data-slot', cfg.slot)
+  s.setAttribute('data-target', '#swoop')
+  s.onerror = function () { send({ type: 'state', state: 'empty', reason: 'offline' }) }
+  document.head.appendChild(s)
+})()
+</script>
+</body>
+</html>

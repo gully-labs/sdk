@@ -1,13 +1,13 @@
 {
   "name": "gully-sdk",
   "private": true,
-  "description": "Gully Labs SDKs on npm under @gullylabs: widgets (tracker, Holder Map, widget), security, kre8-embed and ads.",
+  "description": "Gully Labs SDKs on npm under @gullylabs: widgets (tracker, Holder Map, widget), security, kre8-embed and Swoop Ads (@swoopads/sdk).",
   "license": "MIT",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build -w @swoopads/sdk && npm run build --workspaces --if-present",
     "test": "npm test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "pack:dry": "npm publish --dry-run --workspaces --access public",
