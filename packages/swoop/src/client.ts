@@ -18,7 +18,7 @@ export interface GullyAdsOptions {
   baseUrl?: string
   /** placement publishable key `pk_…` (public). Informational on the client; the signature carries it. */
   siteId?: string
-  /** your backend signs the serve query (see @gullylabs/ads/server). Either this or `signUrl`. */
+  /** your backend signs the serve query (see @swoopads/sdk/server). Either this or `signUrl`. */
   getSignedServe?: GetSignedServe
   /** your endpoint: POST { query } -> SignedServe JSON (what `createServeSigner` returns) */
   signUrl?: string
@@ -56,7 +56,7 @@ export class GullyAds {
 
   constructor(o: GullyAdsOptions = {}) {
     if ('siteKey' in o || 'secret' in o || 'secretKey' in o) {
-      throw new Error('@gullylabs/ads: the placement secret (sk_…) must never be given to the browser client; sign on your server with @gullylabs/ads/server')
+      throw new Error('@swoopads/sdk: the placement secret (sk_…) must never be given to the browser client; sign on your server with @swoopads/sdk/server')
     }
     this.baseUrl = (o.baseUrl ?? DEFAULT_BASE_URL).replace(/\/$/, '')
     this.siteId = o.siteId
@@ -93,7 +93,7 @@ export class GullyAds {
         if (typeof h[k] !== 'string' || !h[k]) throw new Error(`getSignedServe did not return header ${k}`)
         headers[k] = h[k]
       }
-      if (/sk_[A-Za-z0-9_-]{10,}/.test(JSON.stringify(h))) throw new Error('@gullylabs/ads: a placement secret reached the browser; sign on the server and return only the headers')
+      if (/sk_[A-Za-z0-9_-]{10,}/.test(JSON.stringify(h))) throw new Error('@swoopads/sdk: a placement secret reached the browser; sign on the server and return only the headers')
     }
     const r = await this.f(`${this.baseUrl}/v1/ads/serve?${query}`, { method: 'GET', headers, cache: 'no-store' })
     if (r.status === 404) return { ads: [], reason: 'ads_disabled', status: 404 }

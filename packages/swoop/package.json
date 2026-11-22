@@ -1,0 +1,129 @@
+{
+  "name": "@swoopads/sdk",
+  "version": "0.1.0",
+  "description": "Swoop Ads SDK for creators: one-line sponsor units (banner, text, native) with no backend and no cookies, the <swoop-ad-slot> web component, a React wrapper and a server helper that signs serve requests. Formerly @gullylabs/ads.",
+  "license": "MIT",
+  "author": "Gully Labs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./server": {
+      "import": {
+        "types": "./dist/server.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": {
+        "types": "./dist/server.d.cts",
+        "default": "./dist/server.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./define": {
+      "import": {
+        "types": "./dist/define.d.ts",
+        "default": "./dist/define.js"
+      },
+      "require": {
+        "types": "./dist/define.d.cts",
+        "default": "./dist/define.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "server": [
+        "./dist/server.d.ts"
+      ],
+      "react": [
+        "./dist/react.d.ts"
+      ],
+      "define": [
+        "./dist/define.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./dist/define.js",
+    "./dist/define.cjs"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "swoop ads",
+    "swoopads",
+    "creators",
+    "sponsors",
+    "ads",
+    "ad unit",
+    "banner",
+    "native ad",
+    "web component",
+    "react",
+    "hmac",
+    "gully labs"
+  ],
+  "homepage": "https://docs.swoopads.xyz/sdk/",
+  "bugs": {
+    "url": "https://github.com/gully-labs/sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gully-labs/sdk.git",
+    "directory": "packages/swoop"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.5",
+    "@types/react": "19.2.2",
+    "jsdom": "27.0.1",
+    "react": "19.2.0",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "4.0.8"
+  }
+}

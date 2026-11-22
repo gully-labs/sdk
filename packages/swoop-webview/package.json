@@ -1,0 +1,18 @@
+{
+  "name": "swoop-webview",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reference samples for showing a Swoop Ads unit in an iOS, Android or Unity web view (not published to npm). Only unit.html is tested here; the Swift, Kotlin and C# files are untested.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.5",
+    "jsdom": "27.0.1",
+    "typescript": "5.9.3",
+    "vitest": "4.0.8"
+  }
+}
