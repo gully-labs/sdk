@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0 - 2026-11-25 (not published)
+
+- The ad rules (owner rule 2026-11-25, https://docs.swoopads.xyz/ad-rules/), the same as the hosted tag 1.1.0:
+  `mountUnit` sends the space it has (`aw`) and an optional exact `size`, keeps the unit at height 0 until the unit page says the
+  creative fits that size exactly, and opens it only while it is off screen; at most one unit in view on phones; nothing on
+  money, sign-in or form pages, in forms, or in fixed or sticky containers (`refusal`); `block` adds your own selector.
+- `<swoop-ad-slot>` / `<gully-ad-slot>` need `size="WxH"` (a listed size the space can hold), draw at exactly that size, refuse a
+  creative that does not fit it (image of another shape, text that would be cut), refuse video and audio, and open the same way.
+- New exports: `UNIT_SIZES`, `ALL_SIZES`, `sizesFor`, `parseSize`, `refusal`.
+- Breaking: the old `swoop:height` protocol of tag 1.0.0 is gone from `mountUnit` (the unit page keeps 1.0.0 units empty).
+
 ## 0.1.0 - 2026-11-22
 
 - Renamed from `@gullylabs/ads` to `@swoopads/sdk` (Swoop Ads). `@gullylabs/ads` stays as a thin package that re-exports this one.

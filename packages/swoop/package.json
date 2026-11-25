@@ -1,6 +1,6 @@
 {
   "name": "@swoopads/sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Swoop Ads SDK for creators: one-line sponsor units (banner, text, native) with no backend and no cookies, the <swoop-ad-slot> web component, a React wrapper and a server helper that signs serve requests. Formerly @gullylabs/ads.",
   "license": "MIT",
   "author": "Gully Labs",

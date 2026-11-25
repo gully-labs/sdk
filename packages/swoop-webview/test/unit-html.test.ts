@@ -74,6 +74,11 @@ describe('swoop-webview unit.html', () => {
     load('none')
     expect(() => msg({ type: 'swoop:height', h: 10 })).not.toThrow()
   })
+  it('forwards the exact fitted size from tag 1.1 (swoop:fit) as the height and width to give the view', () => {
+    const sent = load('ios')
+    msg({ type: 'swoop:fit', id: 'x', w: 320, h: 100 })
+    expect(sent).toEqual([{ type: 'height', h: 100, w: 320 }])
+  })
   it('caps a huge height at 1200', () => {
     const sent = load('ios')
     msg({ type: 'swoop:height', h: 99999 })

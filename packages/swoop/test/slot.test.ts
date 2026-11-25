@@ -25,7 +25,37 @@ class IO {
 const show = (el: Element, ratio: number) => observers.get(el)?.([{ isIntersecting: ratio > 0, intersectionRatio: ratio }])
 
 const flush = async () => {
-  for (let i = 0; i < 6; i++) await Promise.resolve()
+  for (let i = 0; i < 30; i++) await Promise.resolve()
+}
+
+/** jsdom draws nothing: the slot is 800 px wide and sits below the fold unless a test moves it; images "load" at IMG. */
+let IMG: [number, number] | null = [400, 400]
+let slotTop = 2000
+function layout() {
+  Object.defineProperty(HTMLElement.prototype, 'clientWidth', { configurable: true, get: () => 800 })
+  HTMLElement.prototype.getBoundingClientRect = function (this: HTMLElement) {
+    const h = parseFloat(this.style.height) || 0
+    return { top: slotTop, bottom: slotTop + h, left: 0, right: 800, width: 800, height: h, x: 0, y: slotTop, toJSON() {} } as DOMRect
+  }
+  Object.defineProperty(window, 'innerHeight', { configurable: true, value: 700 })
+  Object.defineProperty(window, 'innerWidth', { configurable: true, value: 1280 })
+  window.requestAnimationFrame = ((f: FrameRequestCallback) => (queueMicrotask(() => f(0)), 1)) as typeof requestAnimationFrame
+  ;(window as unknown as { Image: unknown }).Image = class {
+    naturalWidth = IMG ? IMG[0] : 0
+    naturalHeight = IMG ? IMG[1] : 0
+    onload: (() => void) | null = null
+    onerror: (() => void) | null = null
+    referrerPolicy = ''
+    decoding = ''
+    private s = ''
+    set src(v: string) {
+      this.s = v
+      queueMicrotask(() => (IMG ? this.onload?.() : this.onerror?.()))
+    }
+    get src() {
+      return this.s
+    }
+  }
 }
 
 let fetchMock: ReturnType<typeof vi.fn<typeof fetch>>
@@ -35,6 +65,9 @@ let serveStatus = 200
 
 beforeEach(() => {
   vi.useFakeTimers()
+  IMG = [400, 400]
+  slotTop = 2000
+  layout()
   vi.stubGlobal('IntersectionObserver', IO)
   observers.clear()
   serveBody = { ads: [AD], reason: null }
@@ -56,7 +89,7 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-const mount = async (attrs: Record<string, string> = { slot: 'watch_rail', site: 'pk_test_site_000000000001', creator: 'channel:abc', content: 'vid_1' }) => {
+const mount = async (attrs: Record<string, string> = { slot: 'watch_rail', site: 'pk_test_site_000000000001', size: '480x160', creator: 'channel:abc', content: 'vid_1' }) => {
   const el = document.createElement('gully-ad-slot') as GullyAdSlot
   for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v)
   const events: string[] = []
@@ -136,8 +169,8 @@ describe('<gully-ad-slot>', () => {
     expect(init.keepalive).toBe(true)
   })
 
-  it('video creatives wait for the 2 s minVisibleMs the server sends', async () => {
-    serveBody = { ads: [{ ...AD, type: 'video', beacons: { ...AD.beacons, minVisibleMs: 2000 } }], reason: null }
+  it('the impression waits for the minVisibleMs the server sends', async () => {
+    serveBody = { ads: [{ ...AD, beacons: { ...AD.beacons, minVisibleMs: 2000 } }], reason: null }
     const { el } = await mount()
     show(el, 1)
     vi.advanceTimersByTime(1500)
@@ -145,6 +178,42 @@ describe('<gully-ad-slot>', () => {
     vi.advanceTimersByTime(500)
     await flush()
     expect(eventPosts()[0]).toMatchObject({ kind: 'impression', visibleMs: 2000 })
+  })
+
+  it('the ad rules: no video or sound, exact size or nothing, never on form pages, opens only off screen', async () => {
+    serveBody = { ads: [{ ...AD, type: 'video' }], reason: null }
+    let m = await mount()
+    expect(m.el.getAttribute('data-reason')).toBe('format_not_allowed')
+    serveBody = { ads: [AD], reason: null }
+    fetchMock.mockClear()
+    m = await mount({ slot: 'watch_rail', site: 'pk_x' })
+    expect(m.el.getAttribute('data-reason')).toBe('no_size')
+    m = await mount({ slot: 'watch_rail', site: 'pk_x', size: '970x250' })
+    expect(m.el.getAttribute('data-reason')).toBe('no_fit')
+    expect(fetchMock).not.toHaveBeenCalled()
+    IMG = [1200, 300] // too wide to sit beside the text at 160 px high, not the box shape either
+    m = await mount()
+    expect(m.el.getAttribute('data-reason')).toBe('size_mismatch')
+    IMG = [1456, 180] // the 728x90 shape, twice as big: drawn as a banner
+    m = await mount({ slot: 'watch_rail', site: 'pk_x', size: '728x90' })
+    expect(m.el.getAttribute('data-state')).toBe('filled')
+    expect(m.el.style.height).toBe('90px')
+    expect(m.el.shadowRoot!.querySelector('.card.banner img')!.getAttribute('width')).toBe('728')
+    document.body.insertAdjacentHTML('afterbegin', '<input type="password">')
+    m = await mount()
+    expect(m.el.getAttribute('data-reason')).toBe('form_on_page')
+    document.body.innerHTML = ''
+    IMG = [400, 400]
+    slotTop = 100 // in view: it fits but waits
+    m = await mount()
+    expect(m.el.getAttribute('data-state')).toBe('waiting')
+    expect(m.el.style.height).toBe('')
+    expect(m.events).toEqual([])
+    slotTop = 1500
+    window.dispatchEvent(new Event('scroll'))
+    await flush()
+    expect(m.el.getAttribute('data-state')).toBe('filled')
+    expect(m.el.style.height).toBe('160px')
   })
 
   it('click: emits gully-ad:click; the link itself is the server click redirect', async () => {
