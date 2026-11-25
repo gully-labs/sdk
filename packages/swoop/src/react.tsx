@@ -9,6 +9,10 @@ import type { AdCreative, AdSlotName, ContentPrice } from './types'
 
 export interface AdSlotProps {
   slot: AdSlotName
+  /** the exact size, one of the listed sizes (UNIT_SIZES), e.g. "728x90". Without it nothing is drawn (the ad rules). */
+  size?: string
+  /** extra CSS selector that keeps ads off the page when it matches */
+  block?: string
   /** placement publishable key `pk_…` */
   site?: string
   page?: string
@@ -62,6 +66,8 @@ export function AdSlot(p: AdSlotProps) {
   const attrs: Record<string, string | undefined> = {
     slot: p.slot,
     site: p.site,
+    size: p.size,
+    block: p.block,
     page: p.page,
     topic: p.topic,
     creator: p.creator,
@@ -90,10 +96,10 @@ export interface SwoopUnitProps extends Omit<UnitOptions, 'onState'> {
   onState?: UnitOptions['onState']
 }
 
-/** <SwoopUnit spot="pk_�" unit="native" />: one sponsored unit, no backend, no cookies. Renders an empty box that fills only when there is something to show. */
+/** <SwoopUnit spot="pk_…" unit="native" />: one sponsored unit, no backend, no cookies. Renders an empty box that fills only when there is something to show. */
 export function SwoopUnit({ className, style, onState, ...o }: SwoopUnitProps) {
   const host = useRef<HTMLDivElement | null>(null)
-  const key = JSON.stringify([o.spot, o.unit, o.theme, o.slot, o.width, o.page, o.creator, o.content, o.topic, o.baseUrl])
+  const key = JSON.stringify([o.spot, o.unit, o.size, o.theme, o.slot, o.width, o.page, o.block, o.creator, o.content, o.topic, o.baseUrl])
   useEffect(() => {
     const h = mountUnit(host.current, { ...o, onState })
     return () => h?.destroy()

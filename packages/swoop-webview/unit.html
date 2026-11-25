@@ -26,7 +26,9 @@
   window.addEventListener('message', function (e) {
     var m = e.data
     if (e.origin !== API || !m || typeof m !== 'object' || typeof m.type !== 'string' || m.type.indexOf('swoop:') !== 0) return
-    if (m.type === 'swoop:height') send({ type: 'height', h: Math.max(0, Math.min(Number(m.h) || 0, 1200)) })
+    // tag 1.1+: the unit page says the exact size it fits (swoop:fit); size the view to exactly that, or keep it at 0 (ad rules)
+    if (m.type === 'swoop:fit') send({ type: 'height', h: Math.max(0, Math.min(Number(m.h) || 0, 600)), w: Math.max(0, Math.min(Number(m.w) || 0, 1200)) })
+    else if (m.type === 'swoop:height') send({ type: 'height', h: Math.max(0, Math.min(Number(m.h) || 0, 1200)) })
     else if (m.type === 'swoop:state') send({ type: 'state', state: String(m.state).slice(0, 12), reason: m.reason ? String(m.reason).slice(0, 40) : null })
   })
   var s = document.createElement('script')

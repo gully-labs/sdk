@@ -1,6 +1,6 @@
 {
   "name": "@gullylabs/ads",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Renamed to @swoopads/sdk (Swoop Ads). This package re-exports it so existing imports keep working; use @swoopads/sdk in new code.",
   "license": "MIT",
   "author": "Gully Labs",
@@ -104,7 +104,7 @@
     "vitest": "4.0.8"
   },
   "dependencies": {
-    "@swoopads/sdk": "^0.1.0"
+    "@swoopads/sdk": "^0.2.0"
   },
   "keywords": [
     "gully labs",

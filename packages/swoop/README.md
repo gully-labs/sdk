@@ -16,7 +16,7 @@ npm install @swoopads/sdk
 ```ts
 import { mountUnit } from '@swoopads/sdk'
 
-const unit = mountUnit(document.getElementById('sponsor'), { spot: 'pk_your_spot_key', unit: 'native', theme: 'auto' })
+const unit = mountUnit(document.getElementById('sponsor'), { spot: 'pk_your_spot_key', unit: 'native', size: '480x160', theme: 'auto' })
 // unit.destroy() removes it; unit.refresh() asks for another ad
 ```
 
@@ -42,8 +42,20 @@ gives the address it loads, `loadTag()` injects the hosted tag.
 | `unit` | `banner`, `text`, `native` | `native` |
 | `theme` | `light`, `dark`, `auto` | `auto` |
 | `slot` | which sponsor spot to fill | `watch_rail` (banner), `home_feed` |
-| `width` | widest it may grow, 120 to 1200 px | 970 (banner), 480 |
+| `size` | the exact size: banner `1200x400` `970x250` `728x90` `600x200` `468x60` `320x100` `320x50` `300x250`, text `728x90` `480x120` `320x140`, native `480x160` `320x140` | the biggest listed size that fits the element |
+| `width` | the widest size it may take, px | the element's width |
+| `block` | a CSS selector: when it matches anything on the page, no unit is drawn | none |
 | `page`, `creator`, `content`, `topic` | context for the pick; `page` keeps ads off money pages | `article` |
+
+### The ad rules (https://docs.swoopads.xyz/ad-rules/)
+
+Every unit from this package follows them, the same as the hosted tag 1.1+: drawn at one listed size exactly, or not at all (a
+creative that does not fit the size is not drawn and the element takes no space); opens only while it is off screen, so the page
+never moves (only the reader's own Hide closes one in view); at most one unit in view on a phone (480 px wide or less); never on
+pages where money moves or sign-in pages (by the address and `page`), on pages with password, email, card or one-time-code
+fields, inside a form, inside a fixed or sticky container, or where `block` / `data-swoop-no-ads` say so; images and text only,
+no sound, no pop-ups, no overlays. `<swoop-ad-slot>` needs a `size` attribute for the same reason. The reason a unit stayed
+empty is in `data-swoop-reason` (`mountUnit`) or `data-reason` (`<swoop-ad-slot>`).
 
 ## The signed way (your own backend)
 
