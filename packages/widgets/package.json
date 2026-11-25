@@ -159,7 +159,7 @@
     "@types/node": "22.19.5",
     "@types/react": "19.2.2",
     "react": "19.2.0",
-    "tsup": "8.5.1",
+    "tsup": "9.0.0",
     "typescript": "5.9.3",
     "vitest": "4.0.8"
   }
