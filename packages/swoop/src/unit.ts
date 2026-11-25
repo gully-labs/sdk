@@ -88,7 +88,8 @@ export function mountUnit(element: HTMLElement | null | undefined, o: UnitOption
     const id = `swsdk${++seq}${Math.floor(Math.random() * 1e6).toString(36)}`
     const doc = element.ownerDocument
     const box = doc.createElement('div')
-    box.style.cssText = `overflow:hidden;margin:0 auto;height:0px;width:${aw}px`
+    // floated while shut: an empty in-flow box would stop the margins around it collapsing, which shifts the page
+    box.style.cssText = `float:left;overflow:hidden;margin:0 auto;height:0px;width:${aw}px`
     const frame = doc.createElement('iframe')
     const src = unitUrl(o, id, aw, window.location.pathname + window.location.hash)
     frame.title = 'Sponsored'

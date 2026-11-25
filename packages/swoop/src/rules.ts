@@ -23,8 +23,8 @@ export const ALL_SIZES: readonly string[] = [...new Set(Object.values(UNIT_SIZES
 export const MIN_WIDTH = 300
 
 const words = (w: string) => new RegExp(`(^|[/#_.-])(${w})($|[/?_.-])`, 'i')
-export const MONEY_PAGE = words('checkout|cart|pay|payment|payments|buy|sell|swap|trade|claim|claims|mint|bridge|withdraw|deposit|send|wallet')
-export const SIGN_IN_PAGE = words('login|log-in|signin|sign-in|signup|sign-up|register|auth|oauth|password|reset|2fa|mfa|verify')
+export const MONEY_PAGE = words('checkout|cart|pay|payment|payments|buy|sell|swap|trade|claim|claims|mint|bridge|withdraw|deposit|send|wallet|launch|lock|stake|confirm|approve')
+export const SIGN_IN_PAGE = words('login|log-in|signin|sign-in|signup|sign-up|register|auth|oauth|password|reset|2fa|mfa|verify|connect|consent|recover|settings|onboard|welcome')
 export const FORM_FIELDS = 'input[type=password],input[type=email],input[autocomplete^=cc-],input[autocomplete=one-time-code],[data-swoop-no-ads]'
 
 export type RefusalReason = 'money_page' | 'sign_in_page' | 'form_on_page' | 'form_area' | 'overlay_position' | 'no_fit' | 'no_size' | 'size_mismatch' | 'format_not_allowed'
@@ -122,6 +122,8 @@ function settle() {
         }
         if (!crowded(u) && quiet(u)) {
           u.open = true
+          // back in the flow (it was floated while shut so its empty box never stopped margins collapsing)
+          u.box.style.cssFloat = 'none'
           u.box.style.height = `${u.h}px`
           u.onOpen()
         }
