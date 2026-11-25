@@ -18,7 +18,7 @@ export const AD_SLOT_TAG = 'gully-ad-slot'
 const ATTRS = ['slot', 'site', 'size', 'block', 'page', 'topic', 'creator', 'content', 'content-price', 'duration-sec', 'n', 'base-url', 'sign-url', 'label', 'member', 'ad-free', 'gated', 'access'] as const
 
 const CSS = `
-:host{display:block;box-sizing:border-box;overflow:hidden;height:0;font:14px/1.35 Inter,system-ui,sans-serif;color:inherit}
+:host{display:block;box-sizing:border-box;overflow:hidden;height:0;float:left;width:100%;font:14px/1.35 Inter,system-ui,sans-serif;color:inherit}
 :host([data-state="empty"]),:host([hidden]){display:none}
 *{box-sizing:border-box}
 .card{position:relative;display:flex;gap:10px;overflow:hidden;border:1px solid rgba(127,127,127,.25);border-radius:10px;padding:8px;background:inherit}

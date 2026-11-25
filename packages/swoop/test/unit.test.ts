@@ -45,6 +45,8 @@ describe('rules', () => {
     expect(refusal(a)).toBeNull()
     expect(refusal(a, { page: 'checkout' })).toBe('money_page')
     expect(refusal(a, { page: 'login' })).toBe('sign_in_page')
+    expect(refusal(a, { page: 'settings' })).toBe('sign_in_page')
+    expect(refusal(a, { page: 'stake' })).toBe('money_page')
     document.body.insertAdjacentHTML('beforeend', '<div class="cart"></div>')
     expect(refusal(a, { block: '.cart' })).toBe('form_on_page')
     document.body.insertAdjacentHTML('beforeend', '<input type="password">')
@@ -80,6 +82,7 @@ describe('mountUnit', () => {
     expect(new URL(h.frame.src).searchParams.get('aw')).toBe('800')
     const box = boxOf(el)
     expect(box.style.height).toBe('0px')
+    expect(box.style.cssFloat).toBe('left') // out of the flow while shut
     tops.set(box, 100) // in view
     const id = idOf(h.frame)
     const win = h.frame.contentWindow
@@ -94,6 +97,7 @@ describe('mountUnit', () => {
     await tick()
     expect(box.style.height).toBe('90px')
     expect(box.style.width).toBe('728px')
+    expect(box.style.cssFloat).toBe('none')
     expect(h.frame.style.visibility).toBe('visible')
     send({ type: 'swoop:state', id, state: 'viewed' }, win)
     expect(states).toEqual(['waiting', 'filled', 'viewed'])
